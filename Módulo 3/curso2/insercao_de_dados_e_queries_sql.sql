@@ -107,11 +107,7 @@ SELECT Fname, Lname, Address
 FROM EMPLOYEE, DEPARTMENT
 WHERE Dname = ‘Research’ AND Dnumber = Dno;
 
---
---
 -- Expressões e alias
---
---
 
 -- recolhendo o valor do INSS-*
 select Fname, Lname, Salary, Salary*0.011 from employee;
