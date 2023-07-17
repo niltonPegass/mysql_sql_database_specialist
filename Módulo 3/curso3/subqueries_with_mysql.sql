@@ -19,20 +19,24 @@ select Pnumber from project, departament, employee
 --
 
 -- retornar todos os projetos que Smith trabalha e gerencia
-select distinct Pnumber from project where Pnumber in 
-		(select Pnumber from project, departament, employee
-        where Dnum =Dnumber and Mgr_ssn = Ssn and Lname='Smith')
-        or 
-        Pnumber in
-        (select Pno from works_on, employee
-        where Essn = Ssn and Lname='Smith');
-        
-        
+select distinct Pnumber
+from project
+where Pnumber in 
+	(
+	select Pnumber from project, departament, employee
+	where Dnum =Dnumber and Mgr_ssn = Ssn and Lname='Smith'
+	)
+	OR
+	Pnumber in
+	(
+	select Pno from works_on, employee
+	where Essn = Ssn and Lname='Smith'
+	);
+
 -- comparação com apenas um atributo
-select distinct Essn from works_on 
+select distinct Essn from works_on
 	where (Pno,Hours) in (select Pno, Hours from works_on
 							where Essn = '123456789');
-                            
 --
 -- utilizando keywords
 --
@@ -68,10 +72,8 @@ select concat(E.Fname, ' ', E.Lname) as Complete_name_employee from employee as 
                     and e.Sex = d.Sex
                     );
 
---
 --                    
 -- Subqueries com cláusuls existis e unique 
---
 --
 
 -- que possuem dependentes
@@ -87,7 +89,7 @@ select e.Fname, e.Lname
 	where not exists (	select * from dependent as d 
 						where e.Ssn=d.Essn
 					  ); 
-                      
+
 -- e os gerentes? tem dependentes?
 select e.Fname, e.Lname 
 	from employee as e
